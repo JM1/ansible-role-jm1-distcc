@@ -16,15 +16,15 @@
   when: distcc_listener|default(None) == None
 
 - set_fact:
-    distcc_nice: "{{ __distcc_nice|list }}"
+    distcc_nice: "{{ __distcc_nice }}"
   when: distcc_nice|default(None) == None
 
 - set_fact:
-    distcc_jobs: "{{ __distcc_jobs|list }}"
+    distcc_jobs: "{{ __distcc_jobs }}"
   when: distcc_jobs|default(None) == None
 
 - set_fact:
-    distcc_zeroconf: "{{ __distcc_zeroconf|list }}"
+    distcc_zeroconf: "{{ __distcc_zeroconf }}"
   when: distcc_zeroconf|default(None) == None
 
 - set_fact:
@@ -32,7 +32,7 @@
   when: distcc_hosts|default(None) == None
 
 - set_fact:
-    ccache_dir: "{{ __ccache_dir|list }}"
+    ccache_dir: "{{ __ccache_dir }}"
   when: ccache_dir|default(None) == None
 
 - debconf:
