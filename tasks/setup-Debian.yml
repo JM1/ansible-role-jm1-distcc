@@ -35,6 +35,18 @@
     ccache_dir: "{{ __ccache_dir }}"
   when: ccache_dir|default(None) == None
 
+- name: Cleanup role default variables
+  set_fact:
+    __apt_packages: !!null
+    __distcc_start: !!null
+    __distcc_allowed_nets: !!null
+    __distcc_listener: !!null
+    __distcc_nice: !!null
+    __distcc_jobs: !!null
+    __distcc_zeroconf: !!null
+    __distcc_hosts: !!null
+    __ccache_dir: !!null
+
 - debconf:
     name: distcc
     question: distcc/daemon
