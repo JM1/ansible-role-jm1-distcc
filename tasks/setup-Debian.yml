@@ -90,12 +90,12 @@
      package_depends: "{{ apt_packages }}"
 
 - template:
-    src: "{{ distribution_codename }}/etc/distcc/hosts.j2"
+    src: "{{ ansible_distribution }}-{{ ansible_distribution_version }}/etc/distcc/hosts.j2"
     dest: /etc/distcc/hosts
   when: distcc_hosts is defined and distcc_hosts
 
 - template:
-    src: "{{ distribution_codename }}/etc/default/distcc.j2"
+    src: "{{ ansible_distribution }}-{{ ansible_distribution_version }}/etc/default/distcc.j2"
     dest: /etc/default/distcc
   when: ccache_dir is defined and ccache_dir
 
