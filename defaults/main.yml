@@ -1,1 +1,22 @@
 ---
+distcc_start: "false"
+
+distcc_allowed_nets:
+- "127.0.0.1"
+- "::1"
+
+distcc_listener:
+- "127.0.0.1"
+- "::1"
+
+distcc_nice: 10
+
+distcc_jobs: ""
+
+distcc_zeroconf: "false"
+
+distcc_hosts:
+- "+zeroconf"
+- "127.0.0.1"
+
+ccache_dir: "/var/tmp/.ccache/"

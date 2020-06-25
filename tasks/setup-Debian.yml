@@ -1,40 +1,4 @@
 ---
-- set_fact:
-    apt_packages: "{{ __apt_packages|list }}"
-  when: apt_packages|default(None) == None
-
-- set_fact:
-    distcc_start: "{{ __distcc_start|list }}"
-  when: distcc_start|default(None) == None
-
-- set_fact:
-    distcc_allowed_nets: "{{ __distcc_allowed_nets|list }}"
-  when: distcc_allowed_nets|default(None) == None
-
-- set_fact:
-    distcc_listener: "{{ __distcc_listener|list }}"
-  when: distcc_listener|default(None) == None
-
-- set_fact:
-    distcc_nice: "{{ __distcc_nice }}"
-  when: distcc_nice|default(None) == None
-
-- set_fact:
-    distcc_jobs: "{{ __distcc_jobs }}"
-  when: distcc_jobs|default(None) == None
-
-- set_fact:
-    distcc_zeroconf: "{{ __distcc_zeroconf }}"
-  when: distcc_zeroconf|default(None) == None
-
-- set_fact:
-    distcc_hosts: "{{ __distcc_hosts|list }}"
-  when: distcc_hosts|default(None) == None
-
-- set_fact:
-    ccache_dir: "{{ __ccache_dir }}"
-  when: ccache_dir|default(None) == None
-
 - debconf:
     name: distcc
     question: distcc/daemon
@@ -74,26 +38,18 @@
 - include_role:
     name: jm1.virtual_pkg
   vars:
-     package_name: "jm1-distcc"
-     package_depends: "{{ apt_packages }}"
+    package_name: "jm1-distcc"
+    package_depends:
+    - ccache
+    - distcc
+    - distcc-pump
 
 - template:
-    src: "{{ ansible_distribution }}-{{ ansible_distribution_version }}/etc/distcc/hosts.j2"
+    src: "{{ distribution_id|join('-') }}/etc/distcc/hosts.j2"
     dest: /etc/distcc/hosts
   when: distcc_hosts is defined and distcc_hosts
 
 - template:
-    src: "{{ ansible_distribution }}-{{ ansible_distribution_version }}/etc/default/distcc.j2"
+    src: "{{ distribution_id|join('-') }}/etc/default/distcc.j2"
     dest: /etc/default/distcc
   when: ccache_dir is defined and ccache_dir
-
-- set_fact:
-    apt_packages: !!null
-    distcc_start: !!null
-    distcc_allowed_nets: !!null
-    distcc_listener: !!null
-    distcc_nice: !!null
-    distcc_jobs: !!null
-    distcc_zeroconf: !!null
-    distcc_hosts: !!null
-    ccache_dir: !!null
