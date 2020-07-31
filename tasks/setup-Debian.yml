@@ -35,11 +35,10 @@
     value: "{{ distcc_zeroconf }}"
     vtype: boolean
 
-- include_role:
-    name: jm1.virtual_pkg
-  vars:
-    package_name: "jm1-distcc"
-    package_depends:
+- jm1.pkg.meta_pkg:
+    name: "jm1-distcc"
+    version: "1"
+    depends:
     - ccache
     - distcc
     - distcc-pump
